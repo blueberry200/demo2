@@ -34,7 +34,7 @@ jobs:
           context: .
           file: ./Dockerfile
           tags: |
-            yourusername/yourrepository:${{ github.sha }}
-            yourusername/yourrepository:${{ github.run_id }}
-            yourusername/yourrepository:${{ env.TIMESTAMP }}
+            blueberry4006@gmail.com/demo2:${{ github.sha }}
+            blueberry4006@gmail.com/demo2:${{ github.run_id }}
+            blueberry4006@gmail.com/demo2:${{ env.TIMESTAMP }}
           push: true
