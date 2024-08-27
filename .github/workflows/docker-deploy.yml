@@ -1,0 +1,28 @@
+name: Deploy to Docker Hub  # 工作流名称
+
+on:  # 触发工作流的事件
+  push:
+    branches:
+      - main  # 当代码推送到 main 分支时触发
+
+jobs:  # 工作流中的任务
+  build-and-push:  # 任务名称
+    runs-on: ubuntu-latest  # 任务运行所在的虚拟环境
+
+    steps:  # 任务中的步骤
+      - name: Check out the repo
+        uses: actions/checkout@v2  # 使用 actions/checkout 检出代码
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1  # 登录到 Docker Hub
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # 使用存储在 Secrets 的 Docker 用户名
+          password: ${{ secrets.DOCKER_PASSWORD }}  # 使用存储在 Secrets 的 Docker 密码
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2  # 构建并推送 Docker 映像
+        with:
+          context: .  # 指定 Docker 构建的上下文目录
+          file: ./Dockerfile  # 指定 Dockerfile 的路径
+          push: true  # 设置为 true，允许推送到 Docker Hub
+          tags: yourusername/yourrepository:latest  # 设置 Docker 映像的标签
